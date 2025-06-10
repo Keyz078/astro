@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const allblog = await getCollection('blog', ({ data }) => !data.isDraft);
+  const allTags = [...new Set(allblog.flatMap(note => note.data.tags))];
+  
+  return allTags.map(tag => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.params;
+const allblog = await getCollection('blog', ({ data }) => !data.isDraft && data.tags.includes(tag));
+---
+<BaseLayout pageTitle={`Tag: ${tag}`}>
+  <h1 class="!mt-0">Catatan dengan Tag: #{tag}</h1>
+  <ul class="list-none !p-0 space-y-4">
+    {allblog.map(note => (
+      <li class="!pl-0">
+        <a href={`/blog/${note.slug}/`} class="block not-prose p-4 rounded-md border border-light-accent/20 hover:bg-light-accent/10 dark:border-dark-accent/20 dark:hover:bg-dark-accent/10 no-underline">
+          <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent">{note.data.title}</h2>
+          <p class="text-base m-0 pt-1 text-light-text dark:text-dark-text">{note.data.description}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

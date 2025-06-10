@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allblog = await getCollection('blog', ({ data }) => !data.isDraft);
+const allTags = [...new Set(allblog.flatMap(note => note.data.tags))].sort();
+---
+<BaseLayout pageTitle="Daftar Tag">
+  <h1 class="!mt-0">Semua Tag</h1>
+  <div class="flex flex-wrap gap-4">
+    {allTags.map(tag => (
+      <a href={`/tags/${tag}`} class="bg-light-accent/10 dark:bg-dark-accent/10 text-light-accent dark:text-dark-accent px-3 py-2 rounded-md no-underline hover:bg-light-accent/20 dark:hover:bg-dark-accent/20">
+        #{tag} ({allblog.filter(note => note.data.tags.includes(tag)).length})
+      </a>
+    ))}
+  </div>
+</BaseLayout>

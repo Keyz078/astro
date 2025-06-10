@@ -1,0 +1,39 @@
+---
+// src/pages/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.isDraft);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout pageTitle="Home">
+  <h1 class="!mt-0">Latest Posts</h1>
+  <ul class="list-none !p-0 space-y-6">
+    {sortedPosts.slice(0, 5).map(post => (
+      <li class="!pl-0">
+        <a href={`/blog/${post.slug}/`} class="block not-prose no-underline group">
+          
+          {post.data.cover ? (
+          <div class="flex flex-col md:flex-row gap-6 items-start">
+            <img 
+              src={post.data.cover} 
+              alt={post.data.title}
+              class="rounded-md w-full md:w-60 h-32 md:h-auto object-cover shrink-0"
+              width="240" height="135"
+            />
+            <div>
+              <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent group-hover:underline">{post.data.title}</h2>
+              <p class="text-base m-0 pt-1 text-light-text dark:text-dark-text">{post.data.description}</p>
+            </div>
+          </div>
+          ) : (
+          <div>
+            <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent group-hover:underline">{post.data.title}</h2>
+            <p class="text-base m-0 pt-1 text-light-text dark:text-dark-text">{post.data.description}</p>
+          </div>
+        )}
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

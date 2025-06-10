@@ -1,0 +1,16 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+---
+<header class="flex justify-between items-center py-8">
+  <a href="/" class="text-xl font-bold text-light-accent dark:text-dark-accent hover:underline">
+    cd ~/home
+  </a>
+  <nav class="flex items-center gap-4 text-base">
+    <a href="/about" class="hover:underline">~/about</a>
+    <a href="/archive/1" class="hover:underline">~/archive</a>
+    <a href="/tags" class="hover:underline">~/tags</a>
+    <ThemeToggle />
+  </nav>
+</header>
+
+

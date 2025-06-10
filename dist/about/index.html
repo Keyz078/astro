@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title> | Catatan Pribadi</title><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'light') document.documentElement.classList.remove('dark');
+      else document.documentElement.classList.add('dark');
+    </script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><link rel="stylesheet" href="/_astro/about.EBVlLd6G.css">
+<style>:root{--pagefind-ui-primary: #333333;--pagefind-ui-text: #333333;--pagefind-ui-background: #f8f5f2;--pagefind-ui-border: #d4bda8;--pagefind-ui-tag: #5a4a3a}html.dark{--pagefind-ui-primary: #e0e0e0;--pagefind-ui-text: #e0e0e0;--pagefind-ui-background: #282c34;--pagefind-ui-border: #5a4a3a;--pagefind-ui-tag: #d4bda8}html.dark .pagefind-ui__search-input{background-color:var(--pagefind-ui-background);color:var(--pagefind-ui-text);border-color:var(--pagefind-ui-border)}html.dark .pagefind-ui__search-clear{background-color:var(--pagefind-ui-background);color:var(--pagefind-ui-text)!important;border-left-color:var(--pagefind-ui-border)!important}html.dark .pagefind-ui__result-count{color:var(--pagefind-ui-text)}html.dark .pagefind-ui__result-link:hover{background-color:#3a3f47}.code-block-wrapper{position:relative}.copy-code-btn{position:absolute;top:.5rem;right:.5rem;padding:.25rem .5rem;font-size:.8rem;font-family:sans-serif;border-radius:.25rem;border:1px solid transparent;cursor:pointer;transition:all .2s ease}.copy-code-btn{background-color:#e0e0e0;color:#333}.copy-code-btn:hover{background-color:#ccc}html.dark .copy-code-btn{background-color:#4a5568;color:#e2e8f0;border-color:#718096}html.dark .copy-code-btn:hover{background-color:#2d3748}
+</style></head> <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-serif transition-colors duration-300"> <div class="max-w-3xl mx-auto px-4"> <header class="flex justify-between items-center py-8"> <a href="/" class="text-xl font-bold text-light-accent dark:text-dark-accent hover:underline">
+cd ~/home
+</a> <nav class="flex items-center gap-4 text-base"> <a href="/about" class="hover:underline">~/about</a> <a href="/archive/1" class="hover:underline">~/archive</a> <a href="/tags" class="hover:underline">~/tags</a> <button id="theme-toggle" class="p-2 rounded-md hover:bg-black/10 dark:hover:bg-white/10" aria-label="Toggle theme"> <svg class="h-6 w-6 hidden dark:block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg> <svg class="h-6 w-6 block dark:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> </button> <script type="module">const t=document.getElementById("theme-toggle");t&&t.addEventListener("click",()=>{const e=document.documentElement.classList.toggle("dark");localStorage.setItem("theme",e?"dark":"light")});</script> </nav> </header> <div id="search" class="mb-8"></div> <main> <div class="prose dark:prose-invert max-w-none prose-p:text-light-text prose-headings:text-light-accent dark:prose-p:text-dark-text dark:prose-headings:text-dark-accent"> <h1 id="tentang-saya">Tentang Saya</h1>
+<p>Halo! Saya [Nama Anda], seorang [Pekerjaan atau Hobi Anda] yang bersemangat tentang teknologi, menulis, dan berbagi pengetahuan.</p>
+<p>Situs ini adalah taman digital (digital garden) pribadi saya, tempat saya menanam ide, merawat pemikiran, dan mendokumentasikan perjalanan belajar saya dalam berbagai topik.</p>
+<h2 id="hubungi-saya">Hubungi Saya</h2>
+<p>Anda bisa menemukan saya di platform berikut:</p>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/">@username</a></li>
+<li><strong>LinkedIn</strong>: <a href="https://linkedin.com/in/">Nama Anda</a></li>
+</ul> </div> </main> <footer class="text-center py-8 mt-12 text-sm text-light-accent dark:text-dark-accent">
+© 2025 Luqinthar Sudarsono
+</footer> </div> <script type="module">window.addEventListener("DOMContentLoaded",()=>{new PagefindUI({element:"#search",showSubResults:!0})});</script> <script type="module">function n(){document.querySelectorAll("pre").forEach(t=>{if(t.querySelector(".copy-code-btn"))return;const e=document.createElement("button");e.className="copy-code-btn",e.textContent="Copy",e.addEventListener("click",()=>{const c=t.querySelector("code");navigator.clipboard&&navigator.clipboard.writeText(c.innerText).then(()=>{e.textContent="Copied!!",setTimeout(()=>{e.textContent="Copy"},2e3)})});const o=document.createElement("div");o.className="code-block-wrapper",t.parentNode.insertBefore(o,t),o.appendChild(t),o.appendChild(e)})}document.addEventListener("astro:page-load",n);n();</script> </body> </html>

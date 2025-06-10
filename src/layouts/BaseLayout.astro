@@ -1,0 +1,137 @@
+---
+import Header from '../components/Header.astro';
+
+const { pageTitle } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+  <style is:global>
+  /* --- Pengaturan Tema Pagefind --- */
+
+  /* 1. Variabel Warna untuk Mode Terang (Default) */
+  :root {
+    --pagefind-ui-primary: #333333;
+    --pagefind-ui-text: #333333;
+    --pagefind-ui-background: #f8f5f2;
+    --pagefind-ui-border: #d4bda8;
+    --pagefind-ui-tag: #5a4a3a;
+  }
+
+  /* 2. Override Variabel untuk Mode Gelap */
+  html.dark {
+    --pagefind-ui-primary: #e0e0e0;
+    --pagefind-ui-text: #e0e0e0;
+    --pagefind-ui-background: #282c34;
+    --pagefind-ui-border: #5a4a3a;
+    --pagefind-ui-tag: #d4bda8;
+  }
+
+  /* 3. Override Spesifik untuk Elemen di Mode Gelap */
+  html.dark .pagefind-ui__search-input {
+    background-color: var(--pagefind-ui-background);
+    color: var(--pagefind-ui-text);
+    border-color: var(--pagefind-ui-border);
+  }
+
+  /* Perbaikan untuk Tombol "Bersihkan" */
+  html.dark .pagefind-ui__search-clear {
+    background-color: var(--pagefind-ui-background);
+    color: var(--pagefind-ui-text) !important; /* Paksa warna teks */
+    border-left-color: var(--pagefind-ui-border) !important;
+  }
+
+  /* Perbaikan untuk Teks "Ditemukan x hasil..." */
+  html.dark .pagefind-ui__result-count {
+    color: var(--pagefind-ui-text);
+  }
+
+  /* Bonus: Membuat warna hover pada hasil pencarian lebih bagus */
+  html.dark .pagefind-ui__result-link:hover {
+    background-color: #3a3f47;
+  }
+
+  .code-block-wrapper {
+  position: relative; /* Ini penting untuk positioning tombol */
+  }
+
+  .copy-code-btn {
+    position: absolute; /* Membuat tombol "melayang" di atas blok kode */
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  /* Gaya untuk mode terang */
+  .copy-code-btn {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  .copy-code-btn:hover {
+    background-color: #cccccc;
+  }
+
+  /* Gaya untuk mode gelap */
+  html.dark .copy-code-btn {
+    background-color: #4a5568;
+    color: #e2e8f0;
+    border-color: #718096;
+  }
+  html.dark .copy-code-btn:hover {
+    background-color: #2d3748;
+  }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle} | Catatan Pribadi</title>
+    
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'light') document.documentElement.classList.remove('dark');
+      else document.documentElement.classList.add('dark');
+    </script>
+    
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  </head>
+  <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-serif transition-colors duration-300">
+    <div class="max-w-3xl mx-auto px-4">
+      <Header />
+      
+      <div id="search" class="mb-8"></div>
+
+      <main>
+        <div class="prose dark:prose-invert max-w-none prose-p:text-light-text prose-headings:text-light-accent dark:prose-p:text-dark-text dark:prose-headings:text-dark-accent">
+          <slot />
+        </div>
+      </main>
+      
+      <footer class="text-center py-8 mt-12 text-sm text-light-accent dark:text-dark-accent">
+        © {new Date().getFullYear()} Luqinthar Sudarsono
+      </footer>
+    </div>
+    <script>
+    import "/src/scripts/copy-code-button.js";
+    </script>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+          new PagefindUI({ element: "#search", showSubResults: true });
+      });
+    </script>
+  </body>
+</html>

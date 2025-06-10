@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+---
+<BaseLayout pageTitle={frontmatter.title}>
+  <article data-pagefind-body>
+    <h1 class="text-3xl font-bold mb-2 !mt-0">{frontmatter.title}</h1>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mt-0 mb-4">
+      Dipublikasikan: {new Date(frontmatter.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+    <div class="flex flex-wrap gap-2 mb-8">
+      {frontmatter.tags.map((tag) => (
+        <a href={`/tags/${tag}`} class="bg-light-accent/10 dark:bg-dark-accent/10 text-light-accent dark:text-dark-accent px-2 py-1 rounded-md text-sm no-underline hover:bg-light-accent/20 dark:hover:bg-dark-accent/20">
+          #{tag}
+        </a>
+      ))}
+    </div>
+    {frontmatter.cover && (
+      <img 
+        src={frontmatter.cover} 
+        alt={frontmatter.title}
+        class="rounded-lg mb-8 w-full h-auto object-cover"
+      />
+    )}
+    <slot /> </article>
+</BaseLayout>
