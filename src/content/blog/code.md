@@ -1,5 +1,5 @@
 ---
-title: "Catatan Kedua ku di 2025"
+title: "Testing sintak code"
 description: "Ini adalah deskripsi singkat tentang catatan pertamaku di situs ini."
 pubDate: 2025-06-10T15:35:00+07:00
 tags: ["pengenalan", "kubernetes", "astro"]
