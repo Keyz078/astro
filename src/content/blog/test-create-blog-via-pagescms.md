@@ -3,8 +3,7 @@ author: Uqi
 title: Test create blog via pagescms
 description: this post is pushed by pagescms
 pubDate: 2025-06-11T10:23:00+07:00
-cover:
-  image: /images/pso2ngs.png
+cover: /images/pso2ngs.png
 tags:
   - game
   - mmorpg
