@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import dayjs from 'dayjs';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Ambil semua post yang tidak di-draft
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Group posts by Year > Month
+const grouped = posts.reduce((acc, post) => {
+  const date = dayjs(post.data.date);
+  const year = date.format('YYYY');
+  const month = date.format('MMMM');
+
+  if (!acc[year]) acc[year] = {};
+  if (!acc[year][month]) acc[year][month] = [];
+
+  acc[year][month].push({
+    ...post,
+    formattedDate: date.format('YYYY-MM-DD'),
+  });
+
+  return acc;
+}, {});
+---
+
+<BaseLayout>
+  <section class="max-w-3xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-8">📚 Archive</h1>
+
+    {
+      Object.entries(grouped)
+        .sort((a, b) => b[0] - a[0]) // Sort by year descending
+        .map(([year, months]) => (
+          <div class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{year}</h2>
+            {
+              Object.entries(months)
+                .sort((a, b) => dayjs(b[0], 'MMMM').month() - dayjs(a[0], 'MMMM').month()) // Sort month descending
+                .map(([month, entries]) => (
+                  <div class="mb-4 ml-4">
+                    <h3 class="text-xl font-medium mb-2">{month}</h3>
+                    <ul class="list-disc list-inside space-y-1">
+                      {
+                        entries.map(({ slug, data, formattedDate }) => (
+                          <li>
+                            <a href={`/blog/${slug}`} class="text-blue-600 hover:underline">
+                              {data.title}
+                            </a>
+                            <span class="text-sm text-gray-500 ml-2">({formattedDate})</span>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                ))
+            }
+          </div>
+        ))
+    }
+  </section>
+</BaseLayout>
