@@ -6,7 +6,7 @@ import type { CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('blog', ({ data }) => !data.isDraft);
-  const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   
   return paginate(sortedPosts, { pageSize: 10 });
 }
@@ -44,7 +44,7 @@ const { page } = Astro.props;
               <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent group-hover:underline">{post.data.title}</h2>
               <p class="text-base m-0 pt-1 text-light-text dark:text-dark-text">{post.data.description}</p>
               <p class="text-sm m-0 pt-2 text-gray-500 dark:text-gray-400">
-                {new Date(post.data.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                {new Date(post.data.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
             </div>
 
