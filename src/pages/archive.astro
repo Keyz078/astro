@@ -1,62 +1,49 @@
 ---
 import { getCollection } from 'astro:content';
-import dayjs from 'dayjs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Ambil semua post yang tidak di-draft
-const posts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await getCollection('blog', ({ data }) => !data.isDraft);
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Group posts by Year > Month
-const grouped = posts.reduce((acc, post) => {
-  const date = dayjs(post.data.date);
-  const year = date.format('YYYY');
-  const month = date.format('MMMM');
+const groupedPosts = {};
 
-  if (!acc[year]) acc[year] = {};
-  if (!acc[year][month]) acc[year][month] = [];
+sortedPosts.forEach(post => {
+  const year = post.data.date.getFullYear();
+  const month = post.data.date.toLocaleString('en-EN', { month: 'long' });
 
-  acc[year][month].push({
-    ...post,
-    formattedDate: date.format('YYYY-MM-DD'),
-  });
-
-  return acc;
-}, {});
+  if (!groupedPosts[year]) {
+    groupedPosts[year] = {};
+  }
+  if (!groupedPosts[year][month]) {
+    groupedPosts[year][month] = [];
+  }
+  
+  groupedPosts[year][month].push(post);
+});
 ---
+<BaseLayout pageTitle="Archives">
+  <h1 class="!mt-0">Archives</h1>
+  
+  {Object.keys(groupedPosts).map(year => (
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold border-b border-light-accent/20 pb-2 mb-6 dark:border-dark-accent/20">{year}</h2>
+      
+      {Object.keys(groupedPosts[year]).map(month => (
+        <div class="mb-8">
+          <h3 class="text-2xl font-semibold mb-4">{month}</h3>
+          <ul class="list-none !p-0 space-y-2">
 
-<BaseLayout>
-  <section class="max-w-3xl mx-auto px-4 py-10">
-    <h1 class="text-3xl font-bold mb-8">📚 Archive</h1>
-
-    {
-      Object.entries(grouped)
-        .sort((a, b) => b[0] - a[0]) // Sort by year descending
-        .map(([year, months]) => (
-          <div class="mb-6">
-            <h2 class="text-2xl font-semibold mb-4">{year}</h2>
-            {
-              Object.entries(months)
-                .sort((a, b) => dayjs(b[0], 'MMMM').month() - dayjs(a[0], 'MMMM').month()) // Sort month descending
-                .map(([month, entries]) => (
-                  <div class="mb-4 ml-4">
-                    <h3 class="text-xl font-medium mb-2">{month}</h3>
-                    <ul class="list-disc list-inside space-y-1">
-                      {
-                        entries.map(({ slug, data, formattedDate }) => (
-                          <li>
-                            <a href={`/blog/${slug}`} class="text-blue-600 hover:underline">
-                              {data.title}
-                            </a>
-                            <span class="text-sm text-gray-500 ml-2">({formattedDate})</span>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                ))
-            }
-          </div>
-        ))
-    }
-  </section>
+            {groupedPosts[year][month].map(post => (
+              <li class="!pl-0">
+                <a href={`/blog/${post.slug}/`} class="flex items-baseline gap-4 group">
+                  <span class="text-gray-500 dark:text-gray-400 font-mono text-sm">{new Date(post.data.date).getDate().toString().padStart(2, '0')}</span>
+                  <span class="text-lg group-hover:underline">{post.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  ))}
 </BaseLayout>
