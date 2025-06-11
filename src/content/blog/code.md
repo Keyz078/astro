@@ -1,11 +1,12 @@
 ---
-title: "Testing sintak code"
-description: "Ini adalah deskripsi singkat tentang catatan pertamaku di situs ini."
-date: 2025-06-10T15:35:00+07:00
-tags: ["pengenalan", "kubernetes", "astro"]
-cover: ""
+title: Testing sintak code
+description: Ini adalah deskripsi singkat tentang catatan pertamaku di situs ini.
+date: 2025-06-11T15:35:00+07:00
+tags:
+  - pengenalan
+  - kubernetes
+  - astro
 ---
-
 # Test
 
 ini test code
@@ -16,6 +17,7 @@ echo "hello world"
 ```
 
 ini kalo python
+
 ```python
 print("hello world")
 ```
