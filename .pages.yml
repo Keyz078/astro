@@ -12,7 +12,7 @@ content:
     path: src/content/blog
     filename: '{primary}.md'
     view:
-      fields: [ author, title, pubDate ]
+      fields: [ title, pubDate ]
     fields:
       # - name: author
       #   label: Author
