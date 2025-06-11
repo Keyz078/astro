@@ -14,9 +14,6 @@ content:
     view:
       fields: [ title, pubDate ]
     fields:
-      # - name: author
-      #   label: Author
-      #   type: string
       - name: title
         label: Title
         type: string
@@ -39,18 +36,6 @@ content:
       - name: cover
         label: Cover
         type: image
-      # - name: showToc
-      #   label: "Table Of Content"
-      #   type: boolean
-      #   default: true
-      # - name: tocopen
-      #   label: "Table of Content Open (default: false)"
-      #   type: boolean
-      #   default: false
-      # - name: comments
-      #   label: "Comments"
-      #   type: boolean
-      #   default: false]
       - name: body
         label: Body
         type: rich-text
