@@ -1,7 +1,7 @@
 ---
 title: "Catatan Kedua ku di 2025"
 description: "Ini adalah deskripsi singkat tentang catatan pertamaku di situs ini."
-pubDate: 2025-02-20T14:35:00+07:00
+date: 2025-02-20T14:35:00+07:00
 tags: ["pengenalan", "kubernetes", "astro"]
 cover: ""
 ---

@@ -20,7 +20,7 @@ content:
       - name: description
         label: Description
         type: string
-      - name: pubDate
+      - name: date
         label: Date
         type: date
         options:
