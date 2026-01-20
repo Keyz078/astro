@@ -8,9 +8,9 @@ const { pageTitle } = Astro.props;
   <head>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <style is:global>
-  /* Force font to Poppins */
-  body {
-    font-family: 'Poppins', sans-serif;
+  /* Force font to Poppins with higher specificity to avoid overrides */
+  html, body {
+    font-family: 'Poppins', sans-serif !important;
   }
 
   /* --- Pengaturan Tema Pagefind --- */
@@ -115,7 +115,7 @@ const { pageTitle } = Astro.props;
     <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
     <script src="/pagefind/pagefind-ui.js" is:inline></script>
   </head>
-  <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-serif transition-colors duration-300">
+  <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-sans transition-colors duration-300">
     <div class="max-w-3xl mx-auto px-4">
       <Header />
       
