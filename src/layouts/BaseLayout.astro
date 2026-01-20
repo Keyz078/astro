@@ -117,21 +117,25 @@ const { pageTitle } = Astro.props;
   </head>
   <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-sans transition-colors duration-300">
     <div class="min-h-screen flex flex-col">
-      <div class="max-w-5xl mx-auto px-4 flex flex-col flex-1">
+      <div class="max-w-5xl mx-auto px-4 w-full">
         <Header />
-
-        <div id="search" class="mb-8"></div>
-
-        <main class="flex-1">
-          <div class="prose dark:prose-invert max-w-none prose-p:text-light-text prose-headings:text-light-accent dark:prose-p:text-dark-text dark:prose-headings:text-dark-accent">
-            <slot />
-          </div>
-        </main>
-
-        <footer class="text-center py-8 mt-12 text-sm text-light-accent dark:text-dark-accent">
-          © {new Date().getFullYear()} Luqinthar Sudarsono
-        </footer>
       </div>
+
+      <div class="flex-1 flex">
+        <div class="max-w-5xl mx-auto px-4 w-full">
+          <div id="search" class="mb-8"></div>
+
+          <main class="h-full">
+            <div class="prose dark:prose-invert max-w-none prose-p:text-light-text prose-headings:text-light-accent dark:prose-p:text-dark-text dark:prose-headings:text-dark-accent">
+              <slot />
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <footer class="text-center py-8 mt-12 text-sm text-light-accent dark:text-dark-accent">
+        <div class="max-w-5xl mx-auto px-4">© {new Date().getFullYear()} Luqinthar Sudarsono</div>
+      </footer>
     </div>
     <script>
     import "/src/scripts/copy-code-button.js";
