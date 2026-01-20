@@ -115,8 +115,8 @@ const { pageTitle } = Astro.props;
     <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
     <script src="/pagefind/pagefind-ui.js" is:inline></script>
   </head>
-  <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-sans transition-colors duration-300">
-    <div class="max-w-5xl mx-auto px-4">
+  <body class="bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text font-sans transition-colors duration-300 min-h-screen flex flex-col">
+    <div class="max-w-5xl mx-auto px-4 flex-1">
       <Header />
       
       <div id="search" class="mb-8"></div>
