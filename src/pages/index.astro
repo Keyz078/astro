@@ -1,39 +1,96 @@
 ---
-// src/pages/index.astro
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.isDraft);
-const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const featuredPost = sortedPosts[0];
+const otherPosts = sortedPosts.slice(1, 5);
 ---
+
 <BaseLayout pageTitle="Home">
-  <h1 class="!mt-0">Latest Posts</h1>
-  <ul class="list-none !p-0 space-y-6">
-    {sortedPosts.slice(0, 5).map(post => (
+
+  <!-- HEADER ROW -->
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
+    <h1 class="!mt-0">Latest Posts</h1>
+
+    <!-- SEARCH BAR -->
+    <input
+      type="search"
+      placeholder="Search posts..."
+      class="w-full md:w-64 px-3 py-2 rounded-md bg-neutral-800 border border-neutral-700
+             text-sm text-neutral-200 placeholder:text-neutral-500
+             focus:outline-none focus:ring-2 focus:ring-light-accent"
+    />
+  </div>
+
+  <!-- FEATURED POST -->
+  {featuredPost && (
+    <a
+      href={`/blog/${featuredPost.slug}/`}
+      class="group block mb-10 not-prose"
+    >
+      <div class="flex flex-col md:flex-row gap-6 items-start">
+        {featuredPost.data.cover && (
+          <img
+            src={featuredPost.data.cover}
+            alt={featuredPost.data.title}
+            class="rounded-xl w-full md:w-[420px] aspect-video object-cover"
+          />
+        )}
+
+        <div class="flex flex-col gap-2">
+          <h2 class="text-2xl font-bold text-light-accent dark:text-dark-accent group-hover:underline">
+            {featuredPost.data.title}
+          </h2>
+
+          <p class="text-base text-light-text dark:text-dark-text">
+            {featuredPost.data.description}
+          </p>
+
+          <span class="inline-block mt-3 w-fit px-4 py-2 rounded-md
+                       bg-light-accent text-black text-sm font-medium">
+            Read more
+          </span>
+        </div>
+      </div>
+    </a>
+  )}
+
+  <!-- OTHER POSTS GRID -->
+  <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 list-none !p-0">
+    {otherPosts.map(post => (
       <li class="!pl-0">
-        <a href={`/blog/${post.slug}/`} class="block not-prose no-underline group">
-          
-          {post.data.cover ? (
-          <div class="flex flex-col md:flex-row gap-6 items-start">
-            <img 
-              src={post.data.cover} 
-              alt={post.data.title}
-              class="rounded-md w-full md:w-60 h-32 md:h-auto object-cover shrink-0"
-              width="240" height="135"
-            />
+        <a
+          href={`/blog/${post.slug}/`}
+          class="group block rounded-xl bg-neutral-800/40
+                 hover:bg-neutral-800 transition not-prose p-4"
+        >
+          <div class="flex gap-4 items-start">
+            {post.data.cover && (
+              <img
+                src={post.data.cover}
+                alt={post.data.title}
+                class="rounded-md w-32 aspect-video object-cover shrink-0"
+              />
+            )}
+
             <div>
-              <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent group-hover:underline">{post.data.title}</h2>
-              <p class="text-base m-0 pt-1 text-light-text dark:text-dark-text">{post.data.description}</p>
+              <h3 class="text-lg font-semibold m-0 text-light-accent dark:text-dark-accent group-hover:underline">
+                {post.data.title}
+              </h3>
+
+              <p class="text-sm text-light-text dark:text-dark-text mt-1">
+                {post.data.description}
+              </p>
             </div>
           </div>
-          ) : (
-          <div>
-            <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent group-hover:underline">{post.data.title}</h2>
-            <p class="text-base m-0 pt-1 text-light-text dark:text-dark-text">{post.data.description}</p>
-          </div>
-        )}
         </a>
       </li>
     ))}
   </ul>
+
 </BaseLayout>
