@@ -13,6 +13,11 @@ const { pageTitle } = Astro.props;
     font-family: 'Poppins', sans-serif !important;
   }
 
+  /* Keep scrollbar gutter stable to avoid page width shift between pages */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   /* --- Pengaturan Tema Pagefind --- */
 
   /* 1. Variabel Warna untuk Mode Terang (Default) */
