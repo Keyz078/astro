@@ -13,8 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.params;
-let allblog = await getCollection('blog', ({ data }) => !data.isDraft && data.tags.includes(tag));
-allblog = allblog.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const allblog = await getCollection('blog', ({ data }) => !data.isDraft && data.tags.includes(tag));
 ---
 <BaseLayout pageTitle={`Tag: ${tag}`}>
   <h1 class="!mt-0">Catatan dengan Tag: #{tag}</h1>
