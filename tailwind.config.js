@@ -24,6 +24,17 @@ export default {
         },
       },
       // (fontFamily defined above)
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            figure: { textAlign: 'center' },
+            'figure img': { margin: '0 auto', display: 'block' },
+            'p[style*="text-align:center"]': { textAlign: 'center' },
+            'p[style*="text-align:center"] img': { margin: '0 auto', display: 'block' },
+            'img.align-center': { margin: '0 auto', display: 'block' },
+          },
+        },
+      }),
     },
   },
   plugins: [
