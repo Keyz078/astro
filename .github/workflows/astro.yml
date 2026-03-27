@@ -5,6 +5,9 @@ on:
   # Jalankan saat push ke branch 'main'
   push:
     branches: ["main"]
+    # Do not run on pushes that only change uploaded images
+    paths-ignore:
+      - 'public/images/**'
 
   # Memungkinkan untuk dijalankan manual dari tab Actions
   workflow_dispatch:
