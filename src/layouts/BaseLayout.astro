@@ -93,15 +93,6 @@ const { pageTitle } = Astro.props;
   html.dark .copy-code-btn:hover {
     background-color: #2d3748;
   }
-
-  /* Ensure images inserted by CMS (or editor) that use inline alignment
-     like <p style="text-align: center"><img ...></p> are centered when
-     inside the prose container. Also handle <figure> and align-center class. */
-  .prose p[style*="text-align:center"] { text-align: center; }
-  .prose p[style*="text-align:center"] img { margin: 0 auto; display: block; }
-  .prose figure { text-align: center; }
-  .prose figure img { margin: 0 auto; display: block; }
-  .prose img.align-center { margin: 0 auto; display: block; }
     </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
