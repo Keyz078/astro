@@ -7,15 +7,5 @@
 </button>
 
 <script>
-  const toggleButton = document.getElementById('theme-toggle');
-
-  // Cek apakah tombolnya berhasil ditemukan
-  if (toggleButton) {
-    toggleButton.addEventListener('click', () => {
-
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-
-  }
+  import "/src/scripts/theme-toggle.js";
 </script>
