@@ -6,5 +6,6 @@ tags:
   - linux
 cover: /images/pso2ngs.png
 ---
-
-contoh kode
+contoh kode  
+  
+test /code
