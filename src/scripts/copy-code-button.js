@@ -38,7 +38,10 @@ function addCopyButtons() {
   });
 }
 
-// Jalankan fungsi saat halaman dimuat atau setelah navigasi
+// Jalankan fungsi setelah DOM siap dan juga setelah navigasi klien
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', addCopyButtons);
+} else {
+  addCopyButtons();
+}
 document.addEventListener('astro:page-load', addCopyButtons);
-// Jalankan juga saat pertama kali load untuk non-navigasi
-addCopyButtons();
