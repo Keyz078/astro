@@ -8,6 +8,6 @@ cover: /images/pso2ngs.png
 ---
 contoh kode  
   
-\`\`\`python  
+```python  
 print("Hello World")  
-\`\`\`
+```
