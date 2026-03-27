@@ -6,6 +6,8 @@ tags:
   - demo
 cover: /images/cover.png
 ---
-# This is Embededed image with center aligned
+# This is Embededed image
 
-<p style="text-align: center"><img src="/images/Sword%20of%20Convallaria.jpg" alt="Sworrd of Convallaria"></p>
+# ![Sword of Convallaria game](/images/Sword%20of%20Convallaria.jpg)
+
+<p style="text-align: center">This is center text</p><p style="text-align: right">This is right Text</p>
