@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection('notes');
 const posts = allPosts
   .filter((p) => !p.data.isDraft)
   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
@@ -38,7 +38,7 @@ const latestGrid = primary.slice(1, 6);
     </div>
 
     <div class="mt-6 text-center">
-      <a href="/blog" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:underline">View All Notes →</a>
+      <a href="/notes" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:underline">View All Notes →</a>
     </div>
   </section>
 

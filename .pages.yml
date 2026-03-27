@@ -6,10 +6,10 @@ media:
     categories: [ image ]
 
 content:
-  - name: blogs
-    label: Blogs
+  - name: notes
+    label: Notes
     type: collection
-    path: src/content/blog
+    path: src/content/notes
     filename: '{primary}.md'
     view:
       fields: [ title, date ]

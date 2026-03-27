@@ -6,7 +6,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
    STATIC PATHS
 ========================= */
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.isDraft);
+  const posts = await getCollection('notes', ({ data }) => !data.isDraft);
 
   const sorted = posts.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -86,7 +86,7 @@ const archive = groupPostsByYearMonth(paginatedPosts);
               {posts.map((post) => (
                 <li>
                   <a
-                    href={`/blog/${post.slug}/`}
+                    href={`/notes/${post.slug}/`}
                     class="flex items-baseline gap-4 group"
                   >
                     <span class="text-gray-500 dark:text-gray-400 font-mono text-sm">

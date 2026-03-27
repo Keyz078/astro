@@ -2,11 +2,9 @@
 import { getCollection } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 
-// Fungsi ini wajib ada untuk memberi tahu Astro halaman mana saja
-// yang perlu dibuat saat proses build.
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
+  const entries = await getCollection('notes');
+  return entries.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
