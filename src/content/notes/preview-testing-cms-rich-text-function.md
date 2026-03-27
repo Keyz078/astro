@@ -11,7 +11,7 @@ _This is italic text_
 
 ~This is strikethroug text~
 
-__This is underline text__
+</u>This is underline text</u>
 
 <p style="text-align: center">This is center</p><p style="text-align: right">This is right</p>
 
