@@ -1,0 +1,28 @@
+---
+// src/pages/notes/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((p) => !p.data.isDraft)
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+---
+
+<BaseLayout pageTitle="All Notes">
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold">All Notes</h1>
+    <div class="mt-3">
+      <input placeholder="Search notes (UI only)" class="w-full max-w-md px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm" />
+    </div>
+  </header>
+
+  <section>
+    <div class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {posts.map((post) => (
+        <PostCard post={post} compact={true} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
