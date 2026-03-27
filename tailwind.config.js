@@ -6,9 +6,10 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      // Use Inter and Lora as the site's primary fonts
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        serif: ['Lora', 'serif'],
       },
       colors: {
         light: {
@@ -22,10 +23,7 @@ export default {
           accent: '#d4bda8',
         },
       },
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Lora', 'serif'],
-      },
+      // (fontFamily defined above)
     },
   },
   plugins: [
