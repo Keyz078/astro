@@ -13,19 +13,28 @@ const posts = allPosts
 const featuredPosts = posts.filter((p) => p.data.featured).slice(0, 3);
 const featuredSlugs = new Set(featuredPosts.map((p) => p.slug));
 
-// Latest Notes: exclude featured, show only 6
-const latestCandidates = posts.filter((p) => !featuredSlugs.has(p.slug));
-const latest = latestCandidates.slice(0, 6);
+// Latest Notes: exclude featured, extract hero + next 5
+const primary = posts.filter((p) => !featuredSlugs.has(p.slug));
+const latestHero = primary.length ? primary[0] : null;
+const latestGrid = primary.slice(1, 6);
 ---
 
 <BaseLayout pageTitle="Home">
   <section class="mb-10">
     <h2 class="text-2xl font-semibold mb-6">Latest Notes</h2>
 
-    <div class="grid gap-6 grid-cols-2 md:grid-cols-3">
-      {latest.map((post) => (
-        <PostCard post={post} />
-      ))}
+    <div class="grid gap-6">
+      {latestHero ? (
+        <div>
+          <PostCard post={latestHero} hero={true} />
+        </div>
+      ) : null}
+
+      <div class="grid gap-6 grid-cols-2 md:grid-cols-3">
+        {latestGrid.map((post) => (
+          <PostCard post={post} compact={true} />
+        ))}
+      </div>
     </div>
 
     <div class="mt-6 text-center">
