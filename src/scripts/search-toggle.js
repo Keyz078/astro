@@ -1,0 +1,26 @@
+ const btn = document.getElementById('search-toggle');
+ const container = document.getElementById('search-container');
+ if (btn && container) {
+   btn.addEventListener('click', (e) => {
+     e.stopPropagation();
+     container.classList.toggle('hidden');
+     // autofocus
+     setTimeout(() => {
+       container.querySelector('input')?.focus();
+     }, 50);
+   });
+   // klik luar = close
+   document.addEventListener('click', (e) => {
+     if (!container.contains(e.target) && !btn.contains(e.target)) {
+       container.classList.add('hidden');
+     }
+   });
+   // shortcut "/"
+   document.addEventListener('keydown', (e) => {
+     if (e.key === '/') {
+       e.preventDefault();
+       container.classList.remove('hidden');
+       container.querySelector('input')?.focus();
+     }
+   });
+ }

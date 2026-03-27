@@ -124,8 +124,17 @@ const { pageTitle } = Astro.props;
 
       <div class="flex-1 flex">
         <div class="max-w-5xl mx-auto px-4 w-full">
-          <div id="search" class="mb-8"></div>
-
+          <div class="relative">
+            <div 
+              id="search-container"
+              class="hidden absolute right-0 mt-2 w-full max-w-xl z-50"
+            >
+              <div 
+                id="search" 
+                class="p-4 rounded-lg border border-light-accent dark:border-dark-accent bg-light-background dark:bg-dark-background shadow-lg"
+              ></div>
+            </div>
+          </div>
           <main class="h-full">
             <div class="prose dark:prose-invert max-w-none prose-p:text-light-text prose-headings:text-light-accent dark:prose-p:text-dark-text dark:prose-headings:text-dark-accent">
               <slot />
@@ -143,7 +152,10 @@ const { pageTitle } = Astro.props;
     </script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
-          new PagefindUI({ element: "#search", showSubResults: true });
+        new PagefindUI({
+          element: "#search",
+          showSubResults: true
+        });
       });
     </script>
   </body>
