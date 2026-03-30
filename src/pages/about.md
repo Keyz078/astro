@@ -1,17 +1,17 @@
 ---
 layout: ../layouts/BaseLayout.astro
-title: "Tentang Saya"
+title: "About"
 ---
 
-# Tentang Saya
+# About me
 
-Halo! Saya [Nama Anda], seorang [Pekerjaan atau Hobi Anda] yang bersemangat tentang teknologi, menulis, dan berbagi pengetahuan.
+Hello! Keyz here,
 
-Situs ini adalah taman digital (digital garden) pribadi saya, tempat saya menanam ide, merawat pemikiran, dan mendokumentasikan perjalanan belajar saya dalam berbagai topik.
+A Cloud Engineer with a strong interest in IT and hands-on experimentation. I like building, breaking, and figuring out how things actually work mostly around Linux, infrastructure, and self-hosted setups.
 
-## Hubungi Saya
+This site is where I keep track of my lab notes, experiments, and ongoing tinkering.
 
-Anda bisa menemukan saya di platform berikut:
+## Ping me
 
-- **GitHub**: [@username](https://github.com/)
-- **LinkedIn**: [Nama Anda](https://linkedin.com/in/)
+- **GitHub**: [@keyz078](https://github.com/keyz078)
+- **LinkedIn**: [Luqinthar](https://www.linkedin.com/in/luqinthar-sudarsono/)
