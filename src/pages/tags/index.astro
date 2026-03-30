@@ -5,7 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const allblog = await getCollection('notes', ({ data }) => !data.isDraft);
 const allTags = [...new Set(allblog.flatMap(note => note.data.tags))].sort();
 ---
-<BaseLayout pageTitle="Daftar Tag">
+<BaseLayout pageTitle="Tags">
   <h1 class="!mt-0">Semua Tag</h1>
   <div class="flex flex-wrap gap-4">
     {allTags.map(tag => (

@@ -16,7 +16,7 @@ const { tag } = Astro.params;
 const allblog = await getCollection('notes', ({ data }) => !data.isDraft && data.tags.includes(tag));
 ---
 <BaseLayout pageTitle={`Tag: ${tag}`}>
-  <h1 class="!mt-0">Catatan dengan Tag: #{tag}</h1>
+  <h1 class="!mt-0">Notes with tag: #{tag}</h1>
   <ul class="list-none !p-0 space-y-4">
     {allblog.map(note => (
       <li class="!pl-0">
