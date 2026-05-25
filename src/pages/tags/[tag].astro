@@ -3,22 +3,33 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const allblog = await getCollection('notes', ({ data }) => !data.isDraft);
-  const allTags = [...new Set(allblog.flatMap(note => note.data.tags))];
+  const allNotes = await getCollection('notes', ({ data }) => !data.isDraft);
   
-  return allTags.map(tag => ({
+  // Build a map of tags to their posts for efficiency
+  const tagMap = new Map<string, typeof allNotes>();
+  
+  allNotes.forEach(note => {
+    note.data.tags.forEach(tag => {
+      if (!tagMap.has(tag)) {
+        tagMap.set(tag, []);
+      }
+      tagMap.get(tag)!.push(note);
+    });
+  });
+  
+  return [...tagMap.entries()].map(([tag, posts]) => ({
     params: { tag },
-    props: { tag },
+    props: { posts, tag },
   }));
 }
 
-const { tag } = Astro.params;
-const allblog = await getCollection('notes', ({ data }) => !data.isDraft && data.tags.includes(tag));
+const { posts, tag } = Astro.props;
+const pageDescription = `${posts.length} note${posts.length !== 1 ? 's' : ''} tagged with "${tag}"`;
 ---
-<BaseLayout pageTitle={`Tag: ${tag}`}>
+<BaseLayout pageTitle={`Tag: ${tag}`} pageDescription={pageDescription}>
   <h1 class="!mt-0">Notes with tag: #{tag}</h1>
   <ul class="list-none !p-0 space-y-4">
-    {allblog.map(note => (
+    {posts.map(note => (
       <li class="!pl-0">
         <a href={`/notes/${note.slug}/`} class="block not-prose p-4 rounded-md border border-light-accent/20 hover:bg-light-accent/10 dark:border-dark-accent/20 dark:hover:bg-dark-accent/10 no-underline">
           <h2 class="text-xl font-bold m-0 text-light-accent dark:text-dark-accent">{note.data.title}</h2>

@@ -1,44 +1,80 @@
 ---
 // Reusable post card used on homepage and /blog
+import { formatDate } from '../config';
+
 const { post, compact = false, hero = false } = Astro.props;
 const img = post.data.cover ?? post.data.image ?? null;
-const date = post.data.date ? new Date(post.data.date).toLocaleDateString() : null;
+const date = post.data.date ? formatDate(post.data.date) : null;
+
+// Base classes shared across all variants
+const baseClasses = 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 transition-transform duration-150 ease-in-out';
+
+// Variant-specific classes
+const variantClasses = hero 
+  ? 'rounded-lg overflow-hidden hover:scale-[1.01]'
+  : compact
+  ? 'rounded-md p-3 text-sm hover:translate-y-[-2px]'
+  : 'rounded-lg p-6 hover:translate-y-[-2px]';
+
+const containerClass = `${baseClasses} ${variantClasses}`;
+
+// Title classes by variant
+const titleClass = hero 
+  ? 'text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100'
+  : compact
+  ? 'text-sm font-medium text-gray-900 dark:text-gray-100'
+  : 'text-lg font-semibold text-gray-900 dark:text-gray-100';
+
+// Description classes by variant
+const descriptionClass = hero 
+  ? 'mt-3 text-sm text-gray-700 dark:text-gray-300 line-clamp-4'
+  : compact
+  ? 'mt-2 text-sm text-gray-600 dark:text-gray-300'
+  : 'mt-3 text-sm text-gray-600 dark:text-gray-300';
+
+// Tags container classes by variant
+const tagsContainerClass = hero 
+  ? 'mt-4 flex flex-wrap gap-2'
+  : compact
+  ? 'mt-2 flex flex-wrap gap-2'
+  : 'mt-4 flex flex-wrap gap-2';
+
+// Inner content wrapper padding
+const innerWrapperClass = hero ? 'p-6' : '';
 ---
 
-<article class={
-  hero
-    ? 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg overflow-hidden transition-transform duration-150 ease-in-out hover:scale-[1.01]'
-    : compact
-    ? 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-md p-3 text-sm transition-transform duration-150 ease-in-out hover:translate-y-[-2px]'
-    : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg p-6 transition-transform duration-150 ease-in-out hover:translate-y-[-2px]'
-}>
+<article class={containerClass}>
   <a href={`/notes/${post.slug}/`} class="block no-underline text-current">
     {img ? (
       hero ? (
         <div class="w-full overflow-hidden bg-transparent">
-          <img src={img} alt={post.data.title} class="w-full h-auto max-h-72 md:max-h-96 object-contain" />
+          <img 
+            src={img} 
+            alt={post.data.title} 
+            class="w-full h-auto max-h-72 md:max-h-96 object-contain"
+            loading="lazy"
+          />
         </div>
       ) : (
-        <img src={img} alt={post.data.title} class="w-full h-32 object-cover rounded-md mb-3" />
+        <img 
+          src={img} 
+          alt={post.data.title} 
+          class="w-full h-32 object-cover rounded-md mb-3"
+          loading="lazy"
+        />
       )
     ) : null}
 
-    <div class={hero ? 'p-6' : compact ? '' : ''}>
+    <div class={innerWrapperClass}>
       <div class="flex items-start justify-between gap-4">
-        <h3 class={
-          hero
-            ? 'text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100'
-            : compact
-            ? 'text-sm font-medium text-gray-900 dark:text-gray-100'
-            : 'text-lg font-semibold text-gray-900 dark:text-gray-100'
-        }>{post.data.title}</h3>
+        <h3 class={titleClass}>{post.data.title}</h3>
         {date ? <time class="text-xs text-gray-500 dark:text-gray-400">{date}</time> : null}
       </div>
 
-      <p class={hero ? 'mt-3 text-sm text-gray-700 dark:text-gray-300 line-clamp-4' : compact ? 'mt-2 text-sm text-gray-600 dark:text-gray-300' : 'mt-3 text-sm text-gray-600 dark:text-gray-300'}>{post.data.description}</p>
+      <p class={descriptionClass}>{post.data.description}</p>
 
       {post.data.tags?.length ? (
-        <div class={hero ? 'mt-4 flex flex-wrap gap-2' : compact ? 'mt-2 flex flex-wrap gap-2' : 'mt-4 flex flex-wrap gap-2'}>
+        <div class={tagsContainerClass}>
           {post.data.tags.map((t) => (
             <span class="text-xs px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded">{t}</span>
           ))}

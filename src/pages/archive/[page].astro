@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../../config';
 
 /* =========================
    STATIC PATHS
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   );
 
-  const postsPerPage = 10;
+  const postsPerPage = SITE_CONFIG.postsPerPage;
   const totalPages = Math.ceil(sorted.length / postsPerPage);
 
   return Array.from({ length: totalPages }, (_, i) => ({
@@ -64,9 +65,10 @@ function groupPostsByYearMonth(posts) {
 ========================= */
 const { paginatedPosts, page, totalPages } = Astro.props;
 const archive = groupPostsByYearMonth(paginatedPosts);
+const pageDescription = `Archive page ${page} of ${totalPages} - ${paginatedPosts.length} posts`;
 ---
 
-<BaseLayout pageTitle={`Archives - Page ${page}`}>
+<BaseLayout pageTitle={`Archives - Page ${page}`} pageDescription={pageDescription}>
   <h1 class="!mt-0">Archives</h1>
 
   {archive.length === 0 ? (

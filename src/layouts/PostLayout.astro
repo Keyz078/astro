@@ -1,12 +1,13 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { formatDate } from '../config';
 const { frontmatter } = Astro.props;
 ---
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout pageTitle={frontmatter.title} pageDescription={frontmatter.description}>
   <article data-pagefind-body>
     <h1 class="text-3xl font-bold mb-2 !mt-0">{frontmatter.title}</h1>
     <p class="text-sm text-gray-500 dark:text-gray-400 mt-0 mb-4">
-      Published: {new Date(frontmatter.date || frontmatter.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+      Published: {formatDate(frontmatter.date || frontmatter.pubDate)}
     </p>
     <div class="flex flex-wrap gap-2 mb-8">
       {frontmatter.tags.map((tag) => (

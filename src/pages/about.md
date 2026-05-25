@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: "About"
+description: "Learn more about Keyz - a Cloud Engineer passionate about Linux, infrastructure, and self-hosted setups"
 ---
 
 # About me

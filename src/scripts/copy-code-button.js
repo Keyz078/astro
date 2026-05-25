@@ -1,5 +1,5 @@
 function addCopyButtons() {
-  // Cari semua blok kode di dalam halaman
+  // Cari semua blok kode di dalam halaman (hanya yang di dalam prose)
   const codeBlocks = document.querySelectorAll('pre');
 
   codeBlocks.forEach(block => {
@@ -10,10 +10,15 @@ function addCopyButtons() {
     const button = document.createElement('button');
     button.className = 'copy-code-btn';
     button.textContent = 'Copy';
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Copy code to clipboard');
 
     // Tambahkan event listener untuk menyalin kode saat diklik
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
       const code = block.querySelector('code');
+      if (!code) return;
+      
       if (navigator.clipboard) {
         navigator.clipboard.writeText(code.innerText).then(() => {
           // Beri feedback visual kepada pengguna
@@ -21,6 +26,12 @@ function addCopyButtons() {
           setTimeout(() => {
             button.textContent = 'Copy';
           }, 2000); // Kembalikan teks setelah 2 detik
+        }).catch((err) => {
+          console.error('Failed to copy code:', err);
+          button.textContent = 'Error';
+          setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 2000);
         });
       }
     });
@@ -38,10 +49,17 @@ function addCopyButtons() {
   });
 }
 
+// Debounce function to prevent running multiple times
+let addButtonsTimeout;
+function scheduleAddCopyButtons() {
+  clearTimeout(addButtonsTimeout);
+  addButtonsTimeout = setTimeout(addCopyButtons, 50);
+}
+
 // Jalankan fungsi setelah DOM siap dan juga setelah navigasi klien
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', addCopyButtons);
+  document.addEventListener('DOMContentLoaded', scheduleAddCopyButtons);
 } else {
-  addCopyButtons();
+  scheduleAddCopyButtons();
 }
-document.addEventListener('astro:page-load', addCopyButtons);
+document.addEventListener('astro:page-load', scheduleAddCopyButtons);
