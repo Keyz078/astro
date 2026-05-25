@@ -1,5 +1,5 @@
  const btn = document.getElementById('search-toggle');
- const container = document.getElementById('search-container');
+ const container = document.querySelector('[id="search-container"]');
  
  if (!btn) {
    if (import.meta.env.DEV) {
@@ -18,9 +18,12 @@
  btn.addEventListener('click', (e) => {
    e.stopPropagation();
    container.classList.toggle('hidden');
-   // autofocus
+   // autofocus - search for input in pagefind UI
    setTimeout(() => {
-     container.querySelector('input')?.focus();
+     const searchInput = container.querySelector('input[placeholder*="Search"], input[type="search"], .pagefind-ui__input');
+     if (searchInput) {
+       searchInput.focus();
+     }
    }, 50);
  });
  
@@ -36,6 +39,11 @@
    if (e.key === '/') {
      e.preventDefault();
      container.classList.remove('hidden');
-     container.querySelector('input')?.focus();
+     setTimeout(() => {
+       const searchInput = container.querySelector('input[placeholder*="Search"], input[type="search"], .pagefind-ui__input');
+       if (searchInput) {
+         searchInput.focus();
+       }
+     }, 50);
    }
  });

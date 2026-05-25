@@ -2,19 +2,17 @@
 import ThemeToggle from "./ThemeToggle.astro";
 import SearchToggle from "./SearchToggle.astro";
 ---
-<header class="flex justify-between items-center py-8">
-  <a href="/" class="text-xl font-bold text-light-accent dark:text-dark-accent hover:underline">
+<header class="flex justify-between items-center py-4 md:py-8 flex-wrap gap-2 md:gap-4">
+  <a href="/" class="text-lg md:text-xl font-bold text-light-accent dark:text-dark-accent hover:underline">
     cd ~/
   </a>
-  <nav class="flex items-center gap-4 text-base">
-    <a href="/about" class="hover:underline">~/about</a>
-    <a href="/archive/1" class="hover:underline">~/archive</a>
-    <a href="/tags" class="hover:underline">~/tags</a>
+  <nav class="flex items-center gap-2 md:gap-4 text-sm md:text-base flex-wrap justify-end order-3 md:order-none w-full md:w-auto">
+    <a href="/about" class="hover:underline whitespace-nowrap">~/about</a>
+    <a href="/archive/1" class="hover:underline whitespace-nowrap">~/archive</a>
+    <a href="/tags" class="hover:underline whitespace-nowrap">~/tags</a>
     <SearchToggle />
     <ThemeToggle />
   </nav>
 </header>
-
-<div id="search-container" class="hidden" data-pagefind-root></div>
 
 
